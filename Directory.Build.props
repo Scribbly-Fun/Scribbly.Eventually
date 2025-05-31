@@ -12,6 +12,7 @@
      <PackageTags>EventSourcing;DDD;DomainDrivenDesign</PackageTags>
      <Company>Scribble LLC</Company>
      <WarningsAsErrors>True</WarningsAsErrors>
+     <PackageLicenseExpression>MIT</PackageLicenseExpression>
    </PropertyGroup>
 
   <PropertyGroup>
