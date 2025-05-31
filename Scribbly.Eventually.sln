@@ -20,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".setup", ".setup", "{991BFF
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 		nuget.config = nuget.config
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scribbly.Eventually.UnitTests", "tests\Scribbly.Eventually.UnitTests\Scribbly.Eventually.UnitTests.csproj", "{21B9E65F-D9FC-41A5-8B1B-70C1C2061058}"
