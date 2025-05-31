@@ -1,6 +1,6 @@
 ﻿namespace Scribbly.Eventually;
 
-abstract class CommandHandler<TCommand, TAggregate>
+public abstract class CommandHandler<TCommand, TAggregate>
     where TAggregate : Aggregate, new()
     where TCommand : ICommand
 {
@@ -21,7 +21,11 @@ abstract class CommandHandler<TCommand, TAggregate>
         
         foreach (var @event in _eventStream)
         {
+#if NETSTANDARD2_0
             aggregate.Apply(@event);
+#else
+            aggregate.Apply((dynamic)@event);
+#endif
         }
 
         var newEvents = HandleCommand(aggregate, command);

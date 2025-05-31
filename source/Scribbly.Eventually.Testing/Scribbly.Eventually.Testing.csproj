@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-        <LangVersion>latestmajor</LangVersion>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <RootNamespace>Scribbly.Eventually</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentAssertions" Version="7.2.0" />
+      <PackageReference Include="FluentAssertions"/>
     </ItemGroup>
 
 </Project>

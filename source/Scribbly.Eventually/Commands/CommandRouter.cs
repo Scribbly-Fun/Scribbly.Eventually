@@ -4,24 +4,46 @@ using Scribbly.Eventually.Errors;
 
 namespace Scribbly.Eventually;
 
+/// <summary>
+/// A configuration POCO used to manage options for the routing of commands and events.
+/// </summary>
 public sealed class RoutingOptions
 {
+    /// <summary>
+    /// A list of assemblies to scan for commands and handlers.
+    /// </summary>
+    public List<Assembly> HandleAssemblies { get; set; } = [];
+    
+    /// <summary>
+    /// A Error outlet, all errors will be sent to this outlet if provided.
+    /// </summary>
     public Action<IError> ErrorHandler { get; set; } = error =>
     {
         Debug.Write(error);
     };
 }
+
+/// <summary>
+/// A router to processor commands and direct them to the correct command handler.
+/// </summary>
 public class CommandRouter
 {
     private static readonly Dictionary<Type, (Type HandlerType, MethodInfo HandleMethod)> Handlers = new();
     
     static CommandRouter()
     {
-        // TODO: Generate this collection using code generation.
-        var handlerTypes = typeof(CommandRouter).Assembly.GetTypes()
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        
+        var handlerTypes = assemblies
+            .SelectMany(a => a.GetTypes()) 
             .Where(t => t is { IsClass: true, IsAbstract: false })
             .Where(t => t.BaseType?.Name == typeof(CommandHandler<,>).Name);
-        
+            
+        // TODO: Generate this collection using code generation.
+        // var handlerTypes = typeof(CommandRouter).Assembly.GetTypes()
+        //     .Where(t => t is { IsClass: true, IsAbstract: false })
+        //     .Where(t => t.BaseType?.Name == typeof(CommandHandler<,>).Name);
+        //
         foreach (var handlerType in handlerTypes)
         {
             var commandType = handlerType.BaseType?.GenericTypeArguments.First();
@@ -34,6 +56,12 @@ public class CommandRouter
     private readonly Action<EventMessage> _publishEvent;
     private readonly RoutingOptions _options;
 
+    /// <summary>
+    /// Creates a new command router
+    /// </summary>
+    /// <param name="eventStream">The event stream containing all the events for the given handler.</param>
+    /// <param name="publishEvent">An outlet for the new events as the handlers create them</param>
+    /// <param name="routingOptions">Options to configure behavior</param>
     public CommandRouter(
         Func<IIdentity, IEnumerable<EventMessage>> eventStream,
         Action<EventMessage> publishEvent,
@@ -46,6 +74,10 @@ public class CommandRouter
         routingOptions?.Invoke(_options);
     }
 
+    /// <summary>
+    /// Handles a command message and routes the command to the correct handler.
+    /// </summary>
+    /// <param name="command">The command to process</param>
     public void Handle(CommandMessage command)
     {
         var filteredStream = _eventStream(command.AggregateId);
@@ -56,7 +88,7 @@ public class CommandRouter
 
         if (!Handlers.TryGetValue(commandType, out var handler))
         {
-            _options.ErrorHandler(new HandlerNotFoundError($"Unable to find handler for command {commandType}"));
+            _options.ErrorHandler(new HandlerNotFoundError(commandType));
             return;
         }
 

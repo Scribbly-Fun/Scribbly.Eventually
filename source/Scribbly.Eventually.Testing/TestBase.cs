@@ -1,58 +1,65 @@
 ﻿using FluentAssertions;
 
-namespace Scribbly.Eventually.Testing;
+namespace Scribbly.Eventually;
 
+/// <summary>
+/// An abstract class used a base class for routing command handling tests.
+/// </summary>
 public abstract class TestBase
 {
-    private readonly GuidId _aggregate_id = new (Guid.NewGuid());
-    private readonly List<EventMessage> _event_stream = new();
-    private readonly List<EventMessage> _new_events = new();
+    private readonly GuidId _aggregateId = new (Guid.NewGuid());
+    private readonly List<EventMessage> _eventStream = new();
+    private readonly List<EventMessage> _newEvents = new();
 
-    protected void Given(params IEvent[] past_events)
+    /// <summary>
+    /// The given phase of the test.  Given 12 books and 10 More books ....
+    /// </summary>
+    /// <param name="pastEvents"></param>
+    protected void Given(params IEvent[] pastEvents)
     {
-        foreach (var @event in past_events)
+        foreach (var @event in pastEvents)
         {
-            _event_stream.Add(new EventMessage(
-                _aggregate_id,
-                _event_stream.Count + 1,
+            _eventStream.Add(new EventMessage(
+                _aggregateId,
+                _eventStream.Count + 1,
                 @event));
         }
     }
 
+    /// <summary>
+    /// The when phase of the test.  When its 9:00pm ....
+    /// </summary>
+    /// <param name="command"></param>
     protected void When(ICommand command)
     {
-        var router = new CommandRouter(_ => _event_stream,
-            _new_events.Add);
+        var router = new CommandRouter(_ => _eventStream,
+            _newEvents.Add);
 
-        router.Handle(new CommandMessage(_aggregate_id, command));
+        router.Handle(new CommandMessage(_aggregateId, command));
     }
 
-    protected void Expect(params object[] expected_events)
+    /// <summary>
+    /// The assertion.  I will be up all night reading.
+    /// </summary>
+    /// <param name="expectedEvents"></param>
+    protected void Expect(params object[] expectedEvents)
     {
-        if (_event_stream.Count != expected_events.Length)
-        {
-            
-        }
-       
-        _new_events.Count.Should().Be(expected_events.Length);
+        _newEvents.Count.Should().Be(expectedEvents.Length);
 
-        for (var i = 0; i < _new_events.Count; i++)
+        for (var i = 0; i < _newEvents.Count; i++)
         {
-            var new_event = _new_events[i].Event;
-            var expected_event = expected_events[i];
+            var newEvent = _newEvents[i].Event;
+            var expectedEvent = expectedEvents[i];
 
-            new_event.GetType()
-                .Should().Be(expected_event.GetType());
+            newEvent.GetType().Should().Be(expectedEvent.GetType());
 
             try
             {
-                new_event
-                    .Should().BeEquivalentTo(expected_event);
+                newEvent.Should().BeEquivalentTo(expectedEvent);
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException ex) when (ex.Message.StartsWith("No members were found for comparison."))
             {
-                if (!ex.Message.StartsWith("No members were found for comparison."))
-                    throw;
+                throw;
             }
         }
     }
