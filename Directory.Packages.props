@@ -4,23 +4,21 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- PRIMITIVE TYPES AND CORE MODELS -->
-  
     <!-- ENTITY FRAMEWORK -->
-   
     <!-- TELEMETRY AND LOGGING -->
-    
     <!-- APPLICATION TOOLING -->
-   
     <!-- ASPNET EXTENSIONS AND FRAMEWORK -->
-    
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1"/>
     <!-- CONSOLE APPLICATION MANAGEMENT -->
-    
     <!-- TESTING FRAMEWORKS -->
     <PackageVersion Include="FluentAssertions" Version="[7.2.0]" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.0"/>
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
-    <PackageVersion Include="xunit" Version="2.5.3"/>
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.3"/>
-    
+    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.5" />
+    <PackageVersion Include="xunit" Version="2.5.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.3" />
   </ItemGroup>
 </Project>
