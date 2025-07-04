@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>4f63f5d7-cbae-4c4e-bd95-4e15251aa66f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Scribbly.Eventually.Cookbook.Api\Scribbly.Eventually.Cookbook.Api.csproj" />
+    <ProjectReference Include="..\Scribbly.Eventually.Cookbook.Web\Scribbly.Eventually.Cookbook.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Scribbly.Aspire.Extensions" />
+  </ItemGroup>
+
+</Project>

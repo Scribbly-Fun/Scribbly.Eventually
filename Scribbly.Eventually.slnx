@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/.setup/">
+    <File Path=".github/workflows/dotnet-beta.yml" />
+    <File Path=".github/workflows/dotnet-release.yml" />
+    <File Path=".github/workflows/dotnet-test.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
+    <File Path="nuget.config" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/example/">
+    <File Path="example/Directory.Build.props" />
+    <Project Path="example/Scribbly.Eventually.Cookbook.AppHost/Scribbly.Eventually.Cookbook.AppHost.csproj" Id="5f2d3e77-ae70-4077-a26f-a53265f515c1" />
+    <Project Path="example/Scribbly.Eventually.Cookbook.ServiceDefaults/Scribbly.Eventually.Cookbook.ServiceDefaults.csproj" />
+    <Project Path="example/Scribbly.Eventually.Cookbook.Web/Scribbly.Eventually.Cookbook.Web.csproj" />
+    <Project Path="example/Scribbly.Eventually.Cookbook.Api/Scribbly.Eventually.Cookbook.Api.csproj" />
+  </Folder>
+  <Folder Name="/lib/">
+    <File Path="source/Directory.Build.props" />
+    <Project Path="source/Scribbly.Eventually.Generator/Scribbly.Eventually.Generator.csproj" />
+    <Project Path="source/Scribbly.Eventually.Testing/Scribbly.Eventually.Testing.csproj" />
+    <Project Path="source/Scribbly.Eventually/Scribbly.Eventually.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <File Path="tests/Directory.Build.props" />
+    <Project Path="tests/Scribbly.Eventually.UnitTests/Scribbly.Eventually.UnitTests.csproj" />
+  </Folder>
+</Solution>

@@ -1,4 +1,4 @@
-﻿namespace Scribbly.Eventually.UnitTests.Setup.Aggregates;
+﻿namespace Scribbly.Eventually.Setup.Aggregates;
 
 
 class Box: Aggregate
