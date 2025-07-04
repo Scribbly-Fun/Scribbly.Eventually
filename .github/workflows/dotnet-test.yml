@@ -1,4 +1,4 @@
-name: DOTNET TEST
+﻿name: 🧪 Test Solution 🧪
 
 on:
 
@@ -12,16 +12,17 @@ jobs:
 
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: './source/**.sln'
+      SOLUTION: './**.slnx'
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+  
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v4.3.1
       with:
-        dotnet-version: 8.x
+        dotnet-version: 9.0.x
         
     - name: Restore dependencies
       run: dotnet restore $SOLUTION
@@ -30,4 +31,4 @@ jobs:
       run: dotnet build $SOLUTION --no-restore
 
     - name: Test Solution
-      run: sudo dotnet test $SOLUTION --no-restore --verbosity normal
+      run: dotnet test $SOLUTION --no-restore --verbosity normal
