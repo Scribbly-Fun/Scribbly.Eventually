@@ -25,6 +25,5 @@
   <Folder Name="/tests/">
     <File Path="tests/Directory.Build.props" />
     <Project Path="tests/Scribbly.Eventually.UnitTests/Scribbly.Eventually.UnitTests.csproj" />
-	<Project Path="tests/Scribbly.Eventually.Cookbook.Tests/Scribbly.Eventually.Cookbook.Tests.csproj" />
   </Folder>
 </Solution>
